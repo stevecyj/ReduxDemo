@@ -6,7 +6,17 @@ class TodoList extends Component {
     this.state = {};
   }
   render() {
-    return <div>ste</div>;
+    return (
+      <div>
+        <div>
+          <input type="text" />
+          <button>送出</button>
+        </div>
+        <ul>
+          <li>STE</li>
+        </ul>
+      </div>
+    );
   }
 }
 
