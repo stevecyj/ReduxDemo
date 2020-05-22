@@ -9,7 +9,11 @@ class TodoList extends Component {
     return (
       <div>
         <div>
-          <input type="text" value={this.props.inputValue} />
+          <input
+            type="text"
+            value={this.props.inputValue}
+            onChange={this.props.inputChange}
+          />
           <button>送出</button>
         </div>
         <ul>
@@ -27,4 +31,18 @@ const stateToProps = (state) => {
   };
 };
 
-export default connect(stateToProps, null)(TodoList);
+const dispatchToProps = (dispatch) => {
+  return {
+    inputChange(e) {
+      // console.log(e.target.value);
+      //派發到 reducer 裡
+      let action = {
+        type: "change_input",
+        value: e.target.value,
+      };
+      dispatch(action);
+    },
+  };
+};
+
+export default connect(stateToProps, dispatchToProps)(TodoList);
