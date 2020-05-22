@@ -1,40 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
-class TodoList extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
+//無狀態組件,因為會用到 props，所以傳遞 props 進來
+const TodoList = (props) => {
+  //用解構賦值簡化 this.props
+  let { inputValue, inputChange, clickButton, list, deleteItem } = props;
+  return (
+    <div>
       <div>
-        <div>
-          <input
-            type="text"
-            value={this.props.inputValue}
-            onChange={this.props.inputChange}
-          />
-          <button onClick={this.props.clickButton}>送出</button>
-        </div>
-        <ul>
-          {this.props.list.map((item, index) => {
-            return (
-              <li
-                key={index}
-                onClick={() => {
-                  this.props.deleteItem(index);
-                  // console.log("12345");
-                }}
-              >
-                {item}
-              </li>
-            );
-          })}
-        </ul>
+        <input type="text" value={inputValue} onChange={inputChange} />
+        <button onClick={clickButton}>送出</button>
       </div>
-    );
-  }
-}
+      <ul>
+        {list.map((item, index) => {
+          return (
+            <li
+              key={index}
+              onClick={() => {
+                deleteItem(index);
+                // console.log("12345");
+              }}
+            >
+              {item}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
 
 // state, props映射關係
 const stateToProps = (state) => {
