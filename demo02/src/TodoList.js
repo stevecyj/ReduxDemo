@@ -14,10 +14,22 @@ class TodoList extends Component {
             value={this.props.inputValue}
             onChange={this.props.inputChange}
           />
-          <button>送出</button>
+          <button onClick={this.props.clickButton}>送出</button>
         </div>
         <ul>
-          <li>STE</li>
+          {this.props.list.map((item, index) => {
+            return (
+              <li
+                key={index}
+                onClick={() => {
+                  this.props.deleteItem(index);
+                  // console.log("12345");
+                }}
+              >
+                {item}
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
@@ -28,6 +40,7 @@ class TodoList extends Component {
 const stateToProps = (state) => {
   return {
     inputValue: state.inputValue,
+    list: state.list,
   };
 };
 
@@ -40,6 +53,16 @@ const dispatchToProps = (dispatch) => {
         type: "change_input",
         value: e.target.value,
       };
+      dispatch(action);
+    },
+    clickButton() {
+      // console.log("12345");
+      let action = { type: "add_item" }; //不給值，從 reducer 裡拿值
+      dispatch(action);
+    },
+    deleteItem(index) {
+      // console.log(index);
+      let action = { type: "delete_item", index };
       dispatch(action);
     },
   };
