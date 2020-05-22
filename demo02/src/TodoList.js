@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-import store from "./store";
+import { connect } from "react-redux";
 
 class TodoList extends Component {
   constructor(props) {
     super(props);
-    this.state = store.getState();
   }
   render() {
     return (
       <div>
         <div>
-          <input type="text" value={this.state.inputValue} />
+          <input type="text" value={this.props.inputValue} />
           <button>送出</button>
         </div>
         <ul>
@@ -21,4 +20,11 @@ class TodoList extends Component {
   }
 }
 
-export default TodoList;
+// state, props映射關係
+const stateToProps = (state) => {
+  return {
+    inputValue: state.inputValue,
+  };
+};
+
+export default connect(stateToProps, null)(TodoList);
